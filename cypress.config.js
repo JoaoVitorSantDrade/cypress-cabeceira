@@ -13,6 +13,8 @@ module.exports = defineConfig({
   },
   env: {
     url: "http://localhost:5173",
+    USER: "j@gmail.com",
+    USER_PASSWORD: "12345678"
   },
 });
 

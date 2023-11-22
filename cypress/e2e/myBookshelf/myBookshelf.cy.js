@@ -180,8 +180,8 @@ describe('Verify bookshelf', () => {
 
     it('Verificar se profile Button existe', () => {
       cy.get('header').within(() => {
-        cy.get('[href="/profile"]').should("exist")
-        cy.log(cy.get('[href="/profile"]'))
+        cy.get('[href="/profile"]').first().should("exist")
+        cy.get('[href="/profile"]').first().click()
       })
       cy.url().should('eq', Cypress.env("url") + '/profile')
     })
