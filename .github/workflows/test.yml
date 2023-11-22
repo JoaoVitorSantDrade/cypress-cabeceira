@@ -2,8 +2,7 @@ name: Repository B Workflow
 
 on:
   repository_dispatch:
-    types:
-      - trigger-repo-b
+    types: [trigger-repo-b]
 
 jobs:
   your-job:
@@ -11,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout Repository B
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cypress tests
         run: npx cypress run
