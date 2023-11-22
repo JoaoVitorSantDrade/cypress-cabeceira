@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:5173",
+    baseUrl: "https://cabeceira-web.vercel.app",
     
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -12,8 +12,8 @@ module.exports = defineConfig({
     },
   },
   env: {
-    url: "http://localhost:5173",
-    USER: "j@gmail.com",
+    url: "https://cabeceira-web.vercel.app",
+    USER: "jj@gmail.com",
     USER_PASSWORD: "12345678"
   },
 });

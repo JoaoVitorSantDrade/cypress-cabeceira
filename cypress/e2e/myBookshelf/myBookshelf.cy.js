@@ -6,7 +6,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
-      cy.visit(Cypress.env("url") + "/")
+      cy.wait(1000)
     });
 
     it('Ter ao menos 3 Sections', () => {
@@ -38,7 +38,7 @@ describe('Verify bookshelf', () => {
       cy.get('header').contains('Explorar').should('exist');
       cy.get('header').contains('Explorar').click()
       cy.wait(1500)
-      cy.url().should('eq', 'http://localhost:5173/explore');
+      cy.url().should('eq', Cypress.env('url') + '/explore');
 
     })
   })
@@ -51,7 +51,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
-      cy.visit(Cypress.env("url") + "/")
+      cy.wait(1000)
     });
 
     it('Ir em Explorar e pesquisar um tema', () => {
@@ -68,8 +68,9 @@ describe('Verify bookshelf', () => {
       cy.Explore()
       cy.get('[id="S7g3AgAAQBAJ"').click()
       cy.contains("Adicionar").click()  
-      cy.wait(100)
+      cy.wait(2000)
       cy.contains("Minha cabeceira").click()
+      cy.wait(1000)
       cy.get('[id="S7g3AgAAQBAJ"').should("exist");
     })
   })
@@ -82,7 +83,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
-      cy.visit(Cypress.env("url") + "/")
+      cy.wait(1000)
     });
 
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
@@ -95,7 +96,7 @@ describe('Verify bookshelf', () => {
     it('Ir na Cabeceira e alterar status de um livro', () => {
       cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
       cy.get('[id="S7g3AgAAQBAJ"]').click()
-      cy.wait(100)
+      cy.wait(500)
       cy.get('[id="modalBody"]').within(() => {
         cy.get('[name="bookshelfStatus"]')
         .invoke('val')
@@ -103,9 +104,9 @@ describe('Verify bookshelf', () => {
 
         cy.wait(200)
 
-        cy.get('select').should('be.visible').select('READING', {force: true})
+        cy.get('select').should('be.visible').select('READING')
 
-        cy.wait(200)
+        cy.wait(2000)
 
         cy.contains("Atualizar leitura").click();
 
@@ -129,9 +130,10 @@ describe('Verify bookshelf', () => {
           cy.get('[name="bookshelfStatus"]')
           .invoke('val')
           .should('eq',"READING")
-          cy.get('input').type("5")
+          cy.get('input').clear().type("5")
           cy.contains("Atualizar leitura").click();
         })
+        cy.wait(500)
         cy.get('[id="S7g3AgAAQBAJ"]').within(()=>{
           cy.get('p').contains(5).should('exist');
         })
@@ -150,7 +152,7 @@ describe('Verify bookshelf', () => {
 
         cy.wait(200)
 
-        cy.get('select').should('be.visible').select('WANT_TO_READ', {force: true})
+        cy.get('select').should('be.visible').select('WANT_TO_READ')
 
         cy.wait(200)
 
@@ -178,6 +180,10 @@ describe('Verify bookshelf', () => {
       cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
     })
 
+    afterEach(() => {
+      cy.wait(1000)
+    })
+    
     it('Verificar se profile Button existe', () => {
       cy.get('header').within(() => {
         cy.get('[href="/profile"]').first().should("exist")
@@ -258,6 +264,9 @@ describe('Verify bookshelf', () => {
       cy.viewport(1920, 1080)
     })
 
+    afterEach(() => {
+      cy.wait(1000)
+    })
 
     it('Logar com senha antiga/errada ', () => {
       cy.LoginCabeceira(Cypress.env('USER'),Cypress.env('USER_PASSWORD'))
