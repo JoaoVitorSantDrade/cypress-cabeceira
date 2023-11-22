@@ -238,6 +238,92 @@ describe('Verify bookshelf', () => {
       
     })
 
+    it('Entrar no profile e trocar corretamente a senha', () => {
+      cy.Profile()
+      cy.contains('Editar perfil').should('exist').click()
+
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="password"]').clear().type(Cypress.env("USER_PASSWORD") + Cypress.env("USER_PASSWORD"))
+        cy.get('button').click()
+      })
+      cy.get('[role="alert"]').should('not.exist')
+      
+    })
+
+  })
+
+  describe('New User Actions', () => {
+    beforeEach(() => {
+      cy.viewport(1920, 1080)
+    })
+
+
+    it('Logar com senha antiga/errada ', () => {
+      cy.LoginCabeceira(Cypress.env('USER'),Cypress.env('USER_PASSWORD'))
+      cy.get('[role="alert"]').should('exist')
+
+    })
+
+    it('Logar com senha atual ', () => {
+      cy.LoginCabeceira(
+        Cypress.env('USER'),
+        Cypress.env('USER_PASSWORD') + Cypress.env('USER_PASSWORD')
+        )
+      
+      cy.get('[role="alert"]').should('not.exist')
+      cy.url().should('eq', Cypress.env("url") + '/');
+    })
+
+    it('Deslogar', () => {
+      cy.LoginCabeceira(
+        Cypress.env('USER'),
+        Cypress.env('USER_PASSWORD') + Cypress.env('USER_PASSWORD')
+        )
+      cy.Profile()
+      cy.contains('Sair').should('exist').click() 
+      cy.url().should('eq', Cypress.env("url") + '/login');
+    })
+
+    it('Alterar para senha antiga', () => {
+      cy.LoginCabeceira(
+        Cypress.env('USER'),
+        Cypress.env('USER_PASSWORD') + Cypress.env('USER_PASSWORD')
+        )
+      cy.Profile()
+      cy.contains('Editar perfil').should('exist').click()
+
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="password"]').clear().type(Cypress.env("USER_PASSWORD"))
+        cy.get('button').click()
+      })
+      cy.get('[role="alert"]').should('not.exist')
+      cy.contains('Sair').should('exist').click() 
+      cy.url().should('eq', Cypress.env("url") + '/login');
+    })
+
+    it('Alterar para usuário antigo', () => {
+      cy.LoginCabeceira(
+        Cypress.env('USER'),
+        Cypress.env('USER_PASSWORD')
+        )
+      cy.Profile()
+      cy.contains('Editar perfil').should('exist').click()
+
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="name"]').clear().type("Joao Vitor")
+        cy.get('[id="lastname"]').clear().type("Santos de Andrade")
+        cy.get('button').click()
+      })
+      cy.get('[role="alert"]').should('not.exist')
+      cy.contains("Pedro Cecilio").should('not.exist')
+      cy.contains("Joao Vitor Santos de Andrade").should('exist')
+      cy.contains('Sair').should('exist').click() 
+      cy.url().should('eq', Cypress.env("url") + '/login');
+    })
+
   })
     
 
