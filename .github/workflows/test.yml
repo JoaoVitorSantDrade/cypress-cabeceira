@@ -1,14 +1,17 @@
-name: Triggered Workflow
+name: On Repository A Push
 
 on:
   repository_dispatch:
     types:
-      - trigger-workflow
+      - trigger-event
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test Vercel App
+      - name: Checkout repository B
+        uses: actions/checkout@v2
+
+      - name: Run tests
         run: npx cypress run
