@@ -1,0 +1,14 @@
+name: Triggered Workflow
+
+on:
+  repository_dispatch:
+    types:
+      - trigger-workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Vercel App
+        run: npx cypress run
