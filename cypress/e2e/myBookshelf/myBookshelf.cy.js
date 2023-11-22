@@ -173,7 +173,7 @@ describe('Verify bookshelf', () => {
   })
 
   describe('UserProfile Actions', () => {
-    before(() => {
+    beforeEach(() => {
       cy.viewport(1920, 1080)
       cy.LoginCabeceira()
     })
@@ -181,9 +181,26 @@ describe('Verify bookshelf', () => {
     it('Verificar se profile Button existe', () => {
       cy.get('header').within(() => {
         cy.get('[href="/profile"]').first().should("exist")
-        cy.get('[href="/profile"]').first().click()
       })
-      cy.url().should('eq', Cypress.env("url") + '/profile')
+    })
+
+    it('Entrar no profile e verficar dado', () => {
+      cy.Profile()
+
+    })
+
+    it('Entrar no profile', () => {
+      cy.Profile()
+      cy.contains("Joao Vitor Santos de Andrade").should('exist')
+      cy.contains('j@gmail.com').should('exist')
+    })
+
+    it('Entrar no profile e editar Nome', () => {
+      cy.Profile()
+      cy.contains("Joao Vitor Santos de Andrade").should('exist')
+      cy.contains('j@gmail.com').should('exist')
+      cy.contains('Editar perfil').should('exist').click()
+
     })
   })
     

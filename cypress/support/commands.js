@@ -13,3 +13,10 @@ Cypress.Commands.add('Explore', () => {
     cy.visit(Cypress.env("url") +'/explore')
     cy.wait(1500);
 });
+
+Cypress.Commands.add('Profile', () => {
+    cy.get('header').within(() => {
+        cy.get('[href="/profile"]').first().click()
+      })
+      cy.url().should('eq', Cypress.env("url") + '/profile')
+});
