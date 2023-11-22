@@ -1,10 +1,10 @@
 import '@testing-library/cypress/add-commands'
 
 
-Cypress.Commands.add('LoginCabeceira', () => {
+Cypress.Commands.add('LoginCabeceira', (login, password) => {
     cy.visit(Cypress.env("url") +'/Login')
-    cy.get('input[name="email"]').type(Cypress.env("USER"))
-      cy.get('input[name="password"]').type(Cypress.env("USER_PASSWORD"))
+    cy.get('input[name="email"]').type(login)
+      cy.get('input[name="password"]').type(password)
     cy.contains('Acessar').click();
     cy.wait(500);
 });
@@ -20,3 +20,4 @@ Cypress.Commands.add('Profile', () => {
       })
       cy.url().should('eq', Cypress.env("url") + '/profile')
 });
+

@@ -2,7 +2,7 @@ describe('Verify bookshelf', () => {
 
     beforeEach(() => {
       cy.viewport(1920, 1080)
-      cy.LoginCabeceira()
+      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
     })
 
     afterEach(() => {
@@ -47,7 +47,7 @@ describe('Verify bookshelf', () => {
 
     beforeEach(() => {
       cy.viewport(1920, 1080)
-      cy.LoginCabeceira()
+      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
     })
 
     afterEach(() => {
@@ -78,7 +78,7 @@ describe('Verify bookshelf', () => {
 
     beforeEach(() => {
       cy.viewport(1920, 1080)
-      cy.LoginCabeceira()
+      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
     })
 
     afterEach(() => {
@@ -175,7 +175,7 @@ describe('Verify bookshelf', () => {
   describe('UserProfile Actions', () => {
     beforeEach(() => {
       cy.viewport(1920, 1080)
-      cy.LoginCabeceira()
+      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
     })
 
     it('Verificar se profile Button existe', () => {
@@ -184,12 +184,12 @@ describe('Verify bookshelf', () => {
       })
     })
 
-    it('Entrar no profile e verficar dado', () => {
+    it('Entrar no profile', () => {
       cy.Profile()
 
     })
 
-    it('Entrar no profile', () => {
+    it('Entrar no profile e verificar dados', () => {
       cy.Profile()
       cy.contains("Joao Vitor Santos de Andrade").should('exist')
       cy.contains('j@gmail.com').should('exist')
@@ -201,7 +201,43 @@ describe('Verify bookshelf', () => {
       cy.contains('j@gmail.com').should('exist')
       cy.contains('Editar perfil').should('exist').click()
 
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="name"]').clear().type("Pedro")
+        cy.get('button').click()
+      })
+      cy.contains("Joao Vitor Santos de Andrade").should('not.exist')
+      cy.contains("Pedro Santos de Andrade").should('exist')
     })
+
+    it('Entrar no profile e editar Sobrenome', () => {
+      cy.Profile()
+      cy.contains("Pedro Santos de Andrade").should('exist')
+      cy.contains('j@gmail.com').should('exist')
+      cy.contains('Editar perfil').should('exist').click()
+
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="lastname"]').clear().type("Cecilio")
+        cy.get('button').click()
+      })
+      cy.contains("Pedro Santos de Andrade").should('not.exist')
+      cy.contains("Pedro Cecilio").should('exist')
+    })
+
+    it('Entrar no profile e trocar erroneamente a senha', () => {
+      cy.Profile()
+      cy.contains('Editar perfil').should('exist').click()
+
+      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('form').should('exist').within(()=>{
+        cy.get('[id="password"]').clear().type("12345")
+        cy.get('button').click()
+      })
+      cy.get('[role="alert"]').should('exist')
+      
+    })
+
   })
     
 
