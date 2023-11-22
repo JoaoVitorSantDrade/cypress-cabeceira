@@ -1,4 +1,4 @@
-describe('See Bookshelf', () => {
+describe('Verify bookshelf', () => {
 
     beforeEach(() => {
       cy.viewport(1920, 1080)
@@ -6,7 +6,7 @@ describe('See Bookshelf', () => {
     })
 
     afterEach(() => {
-      cy.visit("/")
+      cy.visit(Cypress.env("url") + "/")
     });
 
     it('Ter ao menos 3 Sections', () => {
@@ -41,6 +41,18 @@ describe('See Bookshelf', () => {
       cy.url().should('eq', 'http://localhost:5173/explore');
 
     })
+  })
+
+  describe('Go to Explore', () => {
+
+    beforeEach(() => {
+      cy.viewport(1920, 1080)
+      cy.LoginCabeceira()
+    })
+
+    afterEach(() => {
+      cy.visit(Cypress.env("url") + "/")
+    });
 
     it('Ir em Explorar e pesquisar um tema', () => {
       cy.Explore()
@@ -58,9 +70,21 @@ describe('See Bookshelf', () => {
       cy.contains("Adicionar").click()  
       cy.wait(100)
       cy.contains("Minha cabeceira").click()
-      cy.contains("Tecnologia").should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"').should("exist");
     })
-    
+  })
+
+  describe('Cabeceira possible Actions', () => {
+
+    beforeEach(() => {
+      cy.viewport(1920, 1080)
+      cy.LoginCabeceira()
+    })
+
+    afterEach(() => {
+      cy.visit(Cypress.env("url") + "/")
+    });
+
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
       cy.get('[id="Quero ler_keen"]').should("exist");
       cy.get('[id="Quero ler_keen"]').within(() => {
@@ -134,7 +158,33 @@ describe('See Bookshelf', () => {
 
       })
     })
+
+    it('Remover livro da cabeceira', () => {
+      cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"]').click()
+      cy.get('[id="modalBody"]').within(() => {
+        cy.get('form').within(() => {
+          cy.get('img').click()
+        })
+      })
+      cy.contains('Deletar').click();
+      cy.get('[id="S7g3AgAAQBAJ"]').should("not.exist");
+    })
   })
 
+  describe('UserProfile Actions', () => {
+    before(() => {
+      cy.viewport(1920, 1080)
+      cy.LoginCabeceira()
+    })
+
+    it('Verificar se profile Button existe', () => {
+      cy.get('header').within(() => {
+        cy.get('[href="/profile"]').should("exist")
+        cy.log(cy.get('[href="/profile"]'))
+      })
+      cy.url().should('eq', Cypress.env("url") + '/profile')
+    })
+  })
     
 
