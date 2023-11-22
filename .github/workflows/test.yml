@@ -1,14 +1,17 @@
-name: On Repository A Push
+name: Repository B Workflow
 
 on:
   repository_dispatch:
     types:
-      - trigger-event
+      - trigger-repo-b
 
 jobs:
-  build:
+  your-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository B
+      - name: Checkout Repository B
         uses: actions/checkout@v2
+
+      - name: Cypress tests
+        run: npx cypress run
