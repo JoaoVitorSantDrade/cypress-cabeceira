@@ -6,7 +6,7 @@
 
   "scripts": {
     "cypress:open": "cypress open --browser chrome --e2e",
-    "cypress:run": "cypress run --spec 'cypress/e2e/login/login_page.cy.js'",
+    "cypress:run": "cypress run --spec 'cypress/e2e/myBookshelf/myBookshelf.cy.js'",
     "cypress:all": "cypress run",
     "generate:report": "marge ./mochareports/*.json",
     "lint-fix": "eslint --fix ."
