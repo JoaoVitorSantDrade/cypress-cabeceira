@@ -1,0 +1,16 @@
+name: Repository B Workflow
+
+on:
+  repository_dispatch:
+    types: [trigger-repo-b]
+
+jobs:
+  your-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository B
+        uses: actions/checkout@v3
+
+      - name: Cypress tests
+        run: npx cypress run
