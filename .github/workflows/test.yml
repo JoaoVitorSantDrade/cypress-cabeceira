@@ -10,5 +10,8 @@ jobs:
       - name: Checkout Repository B
         uses: actions/checkout@v3
 
+      - name: Install Packages
+        run: npm install
+
       - name: Cypress tests
         run: npx cypress run
