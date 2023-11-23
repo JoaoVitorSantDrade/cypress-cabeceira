@@ -43,7 +43,7 @@ describe('Verify bookshelf', () => {
     })
   })
 
-  describe('Go to Explore', () => {
+  describe('In Explore', () => {
 
     beforeEach(() => {
       cy.viewport(1920, 1080)
@@ -58,7 +58,7 @@ describe('Verify bookshelf', () => {
       cy.Explore()
       cy.get('input').type("Sapo")
       cy.get('[id="searchBooks"]').click()
-      cy.wait(1000)
+      cy.wait(2000)
       cy.get('[id="searchResult"]').within(() => {
         cy.contains("sapo").should('exist');
       })
@@ -70,7 +70,7 @@ describe('Verify bookshelf', () => {
       cy.contains("Adicionar").click()  
       cy.wait(2000)
       cy.contains("Minha cabeceira").click()
-      cy.wait(1000)
+      cy.wait(2000)
       cy.get('[id="S7g3AgAAQBAJ"').should("exist");
     })
   })
@@ -83,7 +83,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
-      cy.wait(1000)
+      cy.wait(1500)
     });
 
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
