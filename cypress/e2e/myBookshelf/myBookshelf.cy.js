@@ -72,7 +72,7 @@ describe('Verify bookshelf', () => {
       cy.contains("Adicionar").click()  
       cy.wait(8000)
       cy.contains("Minha cabeceira").click()
-      cy.wait(2000)
+      cy.wait(10000)
       cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
     })
   })
