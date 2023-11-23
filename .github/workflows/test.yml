@@ -1,8 +1,6 @@
 name: Repository B Workflow
 
-on:
-  repository_dispatch:
-    types: [trigger-repo-b]
+on: [workflow_dispatch]
 
 jobs:
   your-job:
