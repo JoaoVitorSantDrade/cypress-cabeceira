@@ -5,6 +5,6 @@ describe('Login with User', () => {
       cy.get('input[name="password"]').type(Cypress.env("USER_PASSWORD"))
       cy.contains('Acessar').click();
       cy.wait(500);
-      cy.url().should('eq', Cypress.env("url") + '/');
+      cy.url().should('eq', Cypress.env("url") + '/Login');
     })
   })

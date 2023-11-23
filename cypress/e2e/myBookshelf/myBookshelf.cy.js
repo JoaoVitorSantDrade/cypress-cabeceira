@@ -3,6 +3,7 @@ describe('Verify bookshelf', () => {
     beforeEach(() => {
       cy.viewport(1920, 1080)
       cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
+      cy.wait(1000)
     })
 
     afterEach(() => {
@@ -66,12 +67,12 @@ describe('Verify bookshelf', () => {
 
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
-      cy.get('[id="S7g3AgAAQBAJ"').click()
+      cy.get('[id="S7g3AgAAQBAJ"]').click()
       cy.contains("Adicionar").click()  
       cy.wait(2000)
       cy.contains("Minha cabeceira").click()
       cy.wait(2000)
-      cy.get('[id="S7g3AgAAQBAJ"').should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
     })
   })
 
