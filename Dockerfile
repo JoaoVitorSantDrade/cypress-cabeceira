@@ -8,4 +8,4 @@ COPY ./cypress ./cypress
 
 RUN npm install
 
-ENTRYPOINT ["npx", "cypress", "run"]
+CMD ["npx", "cypress", "run", "--browser", "chrome", "--headed"]
