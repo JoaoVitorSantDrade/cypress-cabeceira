@@ -67,6 +67,7 @@ describe('Verify bookshelf', () => {
 
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
+      cy.wait(2000)
       cy.get('[id="S7g3AgAAQBAJ"]').within(() => {
         cy.get('img').click()
       })
@@ -74,7 +75,7 @@ describe('Verify bookshelf', () => {
       cy.contains("Adicionar").click()
       cy.get('[id="1"]', { timeout: 10000 }).should('exist');
       cy.contains("Minha cabeceira").click()
-      cy.wait(400)
+      cy.wait(1000)
       cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
     })
   })
