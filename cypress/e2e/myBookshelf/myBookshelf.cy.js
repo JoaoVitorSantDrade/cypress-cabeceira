@@ -61,6 +61,7 @@ describe('Verify bookshelf', () => {
       cy.get('[id="searchBooks"]',{ timeout: 10000 }).click()
       cy.get('[id="searchResult"]',{ timeout: 10000 }).within(() => {
         cy.contains("sapo",{ timeout: 10000 }).should('exist');
+        
       })
     })
 
@@ -68,6 +69,7 @@ describe('Verify bookshelf', () => {
       cy.Explore()
       cy.get('input', { timeout: 10000 }).clear()
       cy.get('[id="searchBooks"]',{ timeout: 10000 }).click()
+      cy.wait('@requisicao')
       cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
         cy.get('img').click()
       })

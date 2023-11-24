@@ -11,11 +11,14 @@ module.exports = defineConfig({
       supportFile: "cypress/support/index.js";
     },
   },
+
   env: {
     url: "https://cabeceira-web.vercel.app",
     USER: "jj@gmail.com",
     USER_PASSWORD: "12345678",
     BOOK_ID: "41bUDwAAQBAJ"
   },
+    retries: 3,
+  
 });
 
