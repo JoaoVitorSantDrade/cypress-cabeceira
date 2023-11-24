@@ -3,7 +3,7 @@ const { defineConfig } = require("cypress");
 module.exports = defineConfig({
   e2e: {
     baseUrl: "https://cabeceira-web.vercel.app",
-    
+
     setupNodeEvents(on, config) {
       // implement node event listeners here
       testFiles: "**/*.spec.js"; // Padrão para os arquivos de teste
@@ -16,10 +16,8 @@ module.exports = defineConfig({
     url: "https://cabeceira-web.vercel.app",
     USER: "jj@gmail.com",
     USER_PASSWORD: "12345678",
-    BOOK_ID: "41bUDwAAQBAJ"
+    BOOK_ID: "41bUDwAAQBAJ",
   },
-    retries: 3,
-    trashAssetsBeforeRuns: true,
-  
+  retries: 3,
+  trashAssetsBeforeRuns: true,
 });
-
