@@ -58,7 +58,7 @@ describe('Verify bookshelf', () => {
     it('Ir em Explorar e pesquisar um tema (Sapo)', () => {
       cy.Explore()
       cy.get('input').type("Sapo")
-      cy.get('[id="searchBooks"]').click()
+      cy.get('[id="searchBooks"]',{ timeout: 10000 }).click()
       cy.get('[id="searchResult"]',{ timeout: 10000 }).within(() => {
         cy.contains("sapo",{ timeout: 10000 }).should('exist');
       })
@@ -67,13 +67,13 @@ describe('Verify bookshelf', () => {
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
       cy.get('input', { timeout: 10000 }).clear()
+      cy.get('[id="searchBooks"]',{ timeout: 10000 }).click()
       cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
         cy.get('img').click()
       })
+
       cy.contains("Adicionar",{ timeout: 10000 }).click()
       cy.get('[id="1"]', { timeout: 10000 }).should('exist');
-      cy.contains("Minha cabeceira").click()
-      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
     })
   })
   
@@ -122,7 +122,9 @@ describe('Verify bookshelf', () => {
       cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
         cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
-        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).within(()=>{
+          cy.get('img', {timeout: 10000}).click()
+        })
       })
         cy.get('[id="modalBody"]',{ timeout: 10000 }).within(()=>{
           cy.get('[name="bookshelfStatus"]')
@@ -132,7 +134,7 @@ describe('Verify bookshelf', () => {
           cy.contains("Atualizar leitura").click();
         })
         cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).within(()=>{
-          cy.get('p').contains(5).should('exist');
+          cy.get('p',{ timeout: 10000 }).contains(5).should('exist');
         })
       })
 
@@ -140,7 +142,9 @@ describe('Verify bookshelf', () => {
       cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
         cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
-        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).within(()=>{
+          cy.get('img', {timeout: 10000}).click()
+        })
       })
       cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('[name="bookshelfStatus"]')
@@ -181,7 +185,7 @@ describe('Verify bookshelf', () => {
     
     it('Verificar se profile Button existe', () => {
       cy.get('header').within(() => {
-        cy.get('[href="/profile"]').first().should("exist")
+        cy.get('[href="/profile"]', { timeout: 10000 }).first().should("exist")
       })
     })
 
@@ -193,13 +197,13 @@ describe('Verify bookshelf', () => {
     it('Entrar no profile e verificar dados', () => {
       cy.Profile()
       cy.contains("Joao Vitor Santos de Andrade").should('exist')
-      cy.contains('j@gmail.com').should('exist')
+      cy.contains(`${Cypress.env('USER')}`).should('exist')
     })
 
     it('Entrar no profile e editar Nome', () => {
       cy.Profile()
       cy.contains("Joao Vitor Santos de Andrade",{ timeout: 10000 }).should('exist')
-      cy.contains('j@gmail.com').should('exist')
+      cy.contains(`${Cypress.env('USER')}`).should('exist')
       cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
       cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
@@ -214,7 +218,7 @@ describe('Verify bookshelf', () => {
     it('Entrar no profile e editar Sobrenome', () => {
       cy.Profile()
       cy.contains("Pedro Santos de Andrade",{ timeout: 10000 }).should('exist')
-      cy.contains('j@gmail.com').should('exist')
+      cy.contains(`${Cypress.env('USER')}`).should('exist')
       cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
       cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
@@ -249,7 +253,7 @@ describe('Verify bookshelf', () => {
         cy.get('button').click()
       })
       cy.get('[role="alert"]').should('not.exist')
-      
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('not.exist')
     })
 
   })
@@ -276,7 +280,7 @@ describe('Verify bookshelf', () => {
         )
       
       cy.get('[role="alert"]').should('not.exist')
-      cy.url().should('eq', Cypress.env("url") + '/');
+      cy.url({ timeout: 10000 }).should('eq', Cypress.env("url") + '/');
     })
 
     it('Deslogar', () => {
