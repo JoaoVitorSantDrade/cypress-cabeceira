@@ -14,7 +14,8 @@ module.exports = defineConfig({
   env: {
     url: "https://cabeceira-web.vercel.app",
     USER: "jj@gmail.com",
-    USER_PASSWORD: "12345678"
+    USER_PASSWORD: "12345678",
+    BOOK_ID: "41bUDwAAQBAJ"
   },
 });
 

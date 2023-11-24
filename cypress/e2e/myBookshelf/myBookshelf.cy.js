@@ -64,38 +64,15 @@ describe('Verify bookshelf', () => {
       })
     })
 
-    // it('Ir em Explorar e adicionar um livro', () => {
-    //   cy.Explore()
-    //   cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 30000 }).within(() => {
-    //     cy.get('img').click()
-    //   })
-    //   cy.contains("Adicionar",{ timeout: 10000 }).click()
-    //   cy.get('[id="1"]', { timeout: 10000 }).should('exist');
-    //   cy.contains("Minha cabeceira").click()
-    //   cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
-    // })
-  })
-
-  describe('In Explore 2', () => {
-
-    beforeEach(() => {
-      cy.viewport(1920, 1080)
-      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
-    })
-
-    afterEach(() => {
-      cy.wait(1000)
-    });
-
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
-      cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 30000 }).within(() => {
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
         cy.get('img').click()
       })
       cy.contains("Adicionar",{ timeout: 10000 }).click()
       cy.get('[id="1"]', { timeout: 10000 }).should('exist');
       cy.contains("Minha cabeceira").click()
-      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
     })
   })
   
@@ -114,13 +91,13 @@ describe('Verify bookshelf', () => {
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
       cy.get('[id="Quero ler_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Quero ler_keen"]').within(() => {
-        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
       })
     })
 
     it('Ir na Cabeceira e alterar status de um livro', () => {
-      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
-      cy.get('[id="S7g3AgAAQBAJ"]').click()
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
       cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('[name="bookshelfStatus"]',{ timeout: 10000 })
         .invoke('val')
@@ -136,15 +113,15 @@ describe('Verify bookshelf', () => {
     it('Verificar se livro teve seus status alterado', () => {
       cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
       })
     })
 
     it('Alterar paginas lidas do livro para 5', () => {
       cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
-        cy.get('[id="S7g3AgAAQBAJ"]').click()
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
       })
         cy.get('[id="modalBody"]',{ timeout: 10000 }).within(()=>{
           cy.get('[name="bookshelfStatus"]')
@@ -153,7 +130,7 @@ describe('Verify bookshelf', () => {
           cy.get('input').clear().type("5")
           cy.contains("Atualizar leitura").click();
         })
-        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).within(()=>{
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).within(()=>{
           cy.get('p').contains(5).should('exist');
         })
       })
@@ -161,8 +138,8 @@ describe('Verify bookshelf', () => {
     it('Retornar livro para quero ler', () => {
       cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
-        cy.get('[id="S7g3AgAAQBAJ"]').click()
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
+        cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
       })
       cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('[name="bookshelfStatus"]')
@@ -179,15 +156,15 @@ describe('Verify bookshelf', () => {
     })
 
     it('Remover livro da cabeceira', () => {
-      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
-      cy.get('[id="S7g3AgAAQBAJ"]').click()
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`).click()
       cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('form').within(() => {
           cy.get('img',{ timeout: 10000 }).click()
         })
       })
       cy.contains('Deletar').click();
-      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("not.exist");
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("not.exist");
     })
   })
 
