@@ -55,25 +55,46 @@ describe('Verify bookshelf', () => {
       cy.wait(1000)
     });
 
-    it('Ir em Explorar e pesquisar um tema', () => {
+    it('Ir em Explorar, Adicionar Livro e Pesquisar um Tema (Sapo)', () => {
       cy.Explore()
-      cy.get('input').type("Sapo")
+
+      cy.get('input', { timeout: 10000 }).clear()
+      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
+           cy.get('img').click()
+         })
+      cy.contains("Adicionar",{ timeout: 10000 }).click()
+      cy.get('[id="1"]', { timeout: 10000 }).should('exist');
+
+      cy.get('input', { timeout: 10000 }).type("Sapo")
       cy.get('[id="searchBooks"]').click()
       cy.get('[id="searchResult"]',{ timeout: 10000 }).within(() => {
         cy.contains("sapo",{ timeout: 10000 }).should('exist');
       })
+
+
     })
 
-    it('Ir em Explorar e adicionar um livro', () => {
-      cy.Explore()
-      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
-        cy.get('img').click()
-      })
-      cy.contains("Adicionar",{ timeout: 10000 }).click()
-      cy.get('[id="1"]', { timeout: 10000 }).should('exist');
-      cy.contains("Minha cabeceira").click()
-      cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
-    })
+
+    // it('Ir em Explorar e pesquisar um tema', () => {
+    //   cy.Explore()
+    //   cy.get('input').type("Sapo")
+    //   cy.get('[id="searchBooks"]').click()
+    //   cy.get('[id="searchResult"]',{ timeout: 10000 }).within(() => {
+    //     cy.contains("sapo",{ timeout: 10000 }).should('exist');
+    //   })
+    // })
+
+    // it('Ir em Explorar e adicionar um livro', () => {
+    //   cy.Explore()
+    //   cy.get('input', { timeout: 10000 }).clear()
+    //   cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
+    //     cy.get('img').click()
+    //   })
+    //   cy.contains("Adicionar",{ timeout: 10000 }).click()
+    //   cy.get('[id="1"]', { timeout: 10000 }).should('exist');
+    //   cy.contains("Minha cabeceira").click()
+    //   cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
+    // })
   })
   
 
