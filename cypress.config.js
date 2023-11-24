@@ -19,6 +19,7 @@ module.exports = defineConfig({
     BOOK_ID: "41bUDwAAQBAJ"
   },
     retries: 3,
+    trashAssetsBeforeRuns: true,
   
 });
 
