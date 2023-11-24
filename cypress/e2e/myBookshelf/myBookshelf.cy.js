@@ -52,6 +52,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
+      cy.screenshot()
       cy.wait(1000)
     });
 
@@ -68,7 +69,7 @@ describe('Verify bookshelf', () => {
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore().screenshot()
       cy.get('input', { timeout: 10000 }).clear()
-      cy.get('[id="searchBooks"]',{ timeout: 10000 }).click().screenshot()
+      cy.get('[id="searchBooks"]',{ timeout: 10000 }).click()
       cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 30000 }).within(() => {
         cy.get('img').click().screenshot()
       })
@@ -87,11 +88,12 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
+      cy.screenshot()
       cy.wait(1500)
     });
 
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
-      cy.get('[id="Quero ler_keen"]',{ timeout: 10000 }).should("exist").screenshot();
+      cy.get('[id="Quero ler_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Quero ler_keen"]').within(() => {
         cy.get(`[id=${Cypress.env("BOOK_ID")}]`,{ timeout: 10000 }).should("exist");
       })
@@ -181,6 +183,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
+      cy.screenshot()
       cy.wait(1000)
     })
     
@@ -265,6 +268,7 @@ describe('Verify bookshelf', () => {
     })
 
     afterEach(() => {
+      cy.screenshot()
       cy.wait(1000)
     })
 
