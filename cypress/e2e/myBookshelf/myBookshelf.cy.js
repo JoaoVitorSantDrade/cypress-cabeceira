@@ -38,7 +38,7 @@ describe('Verify bookshelf', () => {
       cy.get('header').should('exist');
       cy.get('header').contains('Explorar').should('exist');
       cy.get('header').contains('Explorar').click()
-      cy.wait(1500)
+      cy.wait(1000)
       cy.url().should('eq', Cypress.env('url') + '/explore');
 
     })
@@ -67,12 +67,14 @@ describe('Verify bookshelf', () => {
 
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
-      cy.get('[id="S7g3AgAAQBAJ"]').click()
+      cy.get('[id="S7g3AgAAQBAJ"]').within(() => {
+        cy.get('img').click()
+      })
       cy.wait(2000)
-      cy.contains("Adicionar").click()  
-      cy.wait(8000)
+      cy.contains("Adicionar").click()
+      cy.get('[id="1"]', { timeout: 10000 }).should('exist');
       cy.contains("Minha cabeceira").click()
-      cy.wait(10000)
+      cy.wait(400)
       cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
     })
   })
@@ -135,7 +137,7 @@ describe('Verify bookshelf', () => {
           cy.get('input').clear().type("5")
           cy.contains("Atualizar leitura").click();
         })
-        cy.wait(500)
+        cy.wait(1000)
         cy.get('[id="S7g3AgAAQBAJ"]').within(()=>{
           cy.get('p').contains(5).should('exist');
         })
@@ -172,6 +174,7 @@ describe('Verify bookshelf', () => {
         })
       })
       cy.contains('Deletar').click();
+      cy.wait(2000)
       cy.get('[id="S7g3AgAAQBAJ"]').should("not.exist");
     })
   })

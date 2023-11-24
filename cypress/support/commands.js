@@ -3,7 +3,7 @@ import '@testing-library/cypress/add-commands'
 
 Cypress.Commands.add('LoginCabeceira', (login, password) => {
     cy.visit(Cypress.env("url"))
-    cy.wait(500)
+    cy.get('input[name="email"]').should('not.be.disabled')
     cy.get('input[name="email"]').type(login)
       cy.get('input[name="password"]').type(password)
     cy.contains('Acessar').click();
