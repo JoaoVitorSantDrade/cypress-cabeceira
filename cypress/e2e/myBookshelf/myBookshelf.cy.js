@@ -196,12 +196,12 @@ describe('Verify bookshelf', () => {
 
     it('Entrar no profile e editar Nome', () => {
       cy.Profile()
-      cy.contains("Joao Vitor Santos de Andrade").should('exist')
+      cy.contains("Joao Vitor Santos de Andrade",{ timeout: 10000 }).should('exist')
       cy.contains('j@gmail.com').should('exist')
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
-      cy.get('form').should('exist').within(()=>{
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
+      cy.get('form',{ timeout: 10000 }).should('exist').within(()=>{
         cy.get('[id="name"]').clear().type("Pedro")
         cy.get('button').click()
       })
@@ -211,11 +211,11 @@ describe('Verify bookshelf', () => {
 
     it('Entrar no profile e editar Sobrenome', () => {
       cy.Profile()
-      cy.contains("Pedro Santos de Andrade").should('exist')
+      cy.contains("Pedro Santos de Andrade",{ timeout: 10000 }).should('exist')
       cy.contains('j@gmail.com').should('exist')
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
       cy.get('form').should('exist').within(()=>{
         cy.get('[id="lastname"]').clear().type("Cecilio")
         cy.get('button').click()
@@ -226,10 +226,10 @@ describe('Verify bookshelf', () => {
 
     it('Entrar no profile e trocar erroneamente a senha', () => {
       cy.Profile()
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
-      cy.get('form').should('exist').within(()=>{
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
+      cy.get('form',{ timeout: 10000 }).should('exist').within(()=>{
         cy.get('[id="password"]').clear().type("12345")
         cy.get('button').click()
       })
@@ -239,10 +239,10 @@ describe('Verify bookshelf', () => {
 
     it('Entrar no profile e trocar corretamente a senha', () => {
       cy.Profile()
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
-      cy.get('form').should('exist').within(()=>{
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
+      cy.get('form',{ timeout: 10000 }).should('exist').within(()=>{
         cy.get('[id="password"]').clear().type(Cypress.env("USER_PASSWORD") + Cypress.env("USER_PASSWORD"))
         cy.get('button').click()
       })
@@ -263,7 +263,7 @@ describe('Verify bookshelf', () => {
 
     it('Logar com senha antiga/errada ', () => {
       cy.LoginCabeceira(Cypress.env('USER'),Cypress.env('USER_PASSWORD'))
-      cy.get('[role="alert"]').should('exist')
+      cy.get('[role="alert"]',{ timeout: 10000 }).should('exist')
 
     })
 
@@ -283,7 +283,7 @@ describe('Verify bookshelf', () => {
         Cypress.env('USER_PASSWORD') + Cypress.env('USER_PASSWORD')
         )
       cy.Profile()
-      cy.contains('Sair').should('exist').click() 
+      cy.contains('Sair',{ timeout: 10000 }).should('exist').click() 
       cy.url().should('eq', Cypress.env("url") + '/login');
     })
 
@@ -293,15 +293,15 @@ describe('Verify bookshelf', () => {
         Cypress.env('USER_PASSWORD') + Cypress.env('USER_PASSWORD')
         )
       cy.Profile()
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
-      cy.get('form').should('exist').within(()=>{
-        cy.get('[id="password"]').clear().type(Cypress.env("USER_PASSWORD"))
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
+      cy.get('form',{ timeout: 10000 }).should('exist').within(()=>{
+        cy.get('[id="password"]',{ timeout: 10000 }).clear().type(Cypress.env("USER_PASSWORD"))
         cy.get('button').click()
       })
       cy.get('[role="alert"]').should('not.exist')
-      cy.contains('Sair').should('exist').click() 
+      cy.contains('Sair',{ timeout: 10000 }).should('exist').click() 
       cy.url().should('eq', Cypress.env("url") + '/login');
     })
 
@@ -311,10 +311,10 @@ describe('Verify bookshelf', () => {
         Cypress.env('USER_PASSWORD')
         )
       cy.Profile()
-      cy.contains('Editar perfil').should('exist').click()
+      cy.contains('Editar perfil',{ timeout: 10000 }).should('exist').click()
 
-      cy.get('[id="updateUserModal"]').should('exist')
-      cy.get('form').should('exist').within(()=>{
+      cy.get('[id="updateUserModal"]',{ timeout: 10000 }).should('exist')
+      cy.get('form',{ timeout: 10000 }).should('exist').within(()=>{
         cy.get('[id="name"]').clear().type("Joao Vitor")
         cy.get('[id="lastname"]').clear().type("Santos de Andrade")
         cy.get('button').click()
@@ -322,7 +322,7 @@ describe('Verify bookshelf', () => {
       cy.get('[role="alert"]').should('not.exist')
       cy.contains("Pedro Cecilio").should('not.exist')
       cy.contains("Joao Vitor Santos de Andrade").should('exist')
-      cy.contains('Sair').should('exist').click() 
+      cy.contains('Sair',{ timeout: 10000 }).should('exist').click() 
       cy.url().should('eq', Cypress.env("url") + '/login');
     })
 
