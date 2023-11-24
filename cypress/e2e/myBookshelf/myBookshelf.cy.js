@@ -64,9 +64,32 @@ describe('Verify bookshelf', () => {
       })
     })
 
+    // it('Ir em Explorar e adicionar um livro', () => {
+    //   cy.Explore()
+    //   cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 30000 }).within(() => {
+    //     cy.get('img').click()
+    //   })
+    //   cy.contains("Adicionar",{ timeout: 10000 }).click()
+    //   cy.get('[id="1"]', { timeout: 10000 }).should('exist');
+    //   cy.contains("Minha cabeceira").click()
+    //   cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
+    // })
+  })
+
+  describe('In Explore 2', () => {
+
+    beforeEach(() => {
+      cy.viewport(1920, 1080)
+      cy.LoginCabeceira(Cypress.env("USER"),Cypress.env("USER_PASSWORD"))
+    })
+
+    afterEach(() => {
+      cy.wait(1000)
+    });
+
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
-      cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 10000 }).within(() => {
+      cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 30000 }).within(() => {
         cy.get('img').click()
       })
       cy.contains("Adicionar",{ timeout: 10000 }).click()
@@ -75,6 +98,7 @@ describe('Verify bookshelf', () => {
       cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
     })
   })
+  
 
   describe('Cabeceira possible Actions', () => {
 
