@@ -59,24 +59,20 @@ describe('Verify bookshelf', () => {
       cy.Explore()
       cy.get('input').type("Sapo")
       cy.get('[id="searchBooks"]').click()
-      cy.wait(2000)
-      cy.get('[id="searchResult"]').within(() => {
-        cy.contains("sapo").should('exist');
+      cy.get('[id="searchResult"]',{ timeout: 10000 }).within(() => {
+        cy.contains("sapo",{ timeout: 10000 }).should('exist');
       })
     })
 
     it('Ir em Explorar e adicionar um livro', () => {
       cy.Explore()
-      cy.wait(2000)
-      cy.get('[id="S7g3AgAAQBAJ"]').within(() => {
+      cy.get('[id="S7g3AgAAQBAJ"]' ,{ timeout: 10000 }).within(() => {
         cy.get('img').click()
       })
-      cy.wait(2000)
-      cy.contains("Adicionar").click()
+      cy.contains("Adicionar",{ timeout: 10000 }).click()
       cy.get('[id="1"]', { timeout: 10000 }).should('exist');
       cy.contains("Minha cabeceira").click()
-      cy.wait(1000)
-      cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
     })
   })
 
@@ -92,91 +88,82 @@ describe('Verify bookshelf', () => {
     });
 
     it('Ir na Cabeceira e verificar se livro está no lugar correto', () => {
-      cy.get('[id="Quero ler_keen"]').should("exist");
+      cy.get('[id="Quero ler_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Quero ler_keen"]').within(() => {
-        cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
       })
     })
 
     it('Ir na Cabeceira e alterar status de um livro', () => {
-      cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="S7g3AgAAQBAJ"]').click()
-      cy.wait(500)
-      cy.get('[id="modalBody"]').within(() => {
-        cy.get('[name="bookshelfStatus"]')
+      cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
+        cy.get('[name="bookshelfStatus"]',{ timeout: 10000 })
         .invoke('val')
         .should('eq',"WANT_TO_READ")
 
-        cy.wait(200)
+        cy.get('select',{ timeout: 10000 }).should('be.visible').select('READING')
 
-        cy.get('select').should('be.visible').select('READING')
-
-        cy.wait(2000)
-
-        cy.contains("Atualizar leitura").click();
+        cy.contains("Atualizar leitura",{ timeout: 10000 }).click();
 
       })
     })
 
     it('Verificar se livro teve seus status alterado', () => {
-      cy.get('[id="Lendo_keen"]').should("exist");
+      cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
       })
     })
 
     it('Alterar paginas lidas do livro para 5', () => {
-      cy.get('[id="Lendo_keen"]').should("exist");
+      cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
         cy.get('[id="S7g3AgAAQBAJ"]').click()
       })
-        cy.get('[id="modalBody"]').within(()=>{
+        cy.get('[id="modalBody"]',{ timeout: 10000 }).within(()=>{
           cy.get('[name="bookshelfStatus"]')
           .invoke('val')
           .should('eq',"READING")
           cy.get('input').clear().type("5")
           cy.contains("Atualizar leitura").click();
         })
-        cy.wait(1000)
-        cy.get('[id="S7g3AgAAQBAJ"]').within(()=>{
+        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).within(()=>{
           cy.get('p').contains(5).should('exist');
         })
       })
 
     it('Retornar livro para quero ler', () => {
-      cy.get('[id="Lendo_keen"]').should("exist");
+      cy.get('[id="Lendo_keen"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="Lendo_keen"]').within(()=>{
-        cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+        cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
         cy.get('[id="S7g3AgAAQBAJ"]').click()
       })
-      cy.get('[id="modalBody"]').within(() => {
+      cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('[name="bookshelfStatus"]')
         .invoke('val')
         .should('eq',"READING")
 
-        cy.wait(200)
 
-        cy.get('select').should('be.visible').select('WANT_TO_READ')
+        cy.get('select',{ timeout: 10000 }).should('be.visible').select('WANT_TO_READ')
 
-        cy.wait(200)
 
-        cy.contains("Atualizar leitura").click();
+        cy.contains("Atualizar leitura",{ timeout: 10000 }).click();
 
       })
     })
 
     it('Remover livro da cabeceira', () => {
-      cy.get('[id="S7g3AgAAQBAJ"]').should("exist");
+      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("exist");
       cy.get('[id="S7g3AgAAQBAJ"]').click()
-      cy.get('[id="modalBody"]').within(() => {
+      cy.get('[id="modalBody"]',{ timeout: 10000 }).within(() => {
         cy.get('form').within(() => {
-          cy.get('img').click()
+          cy.get('img',{ timeout: 10000 }).click()
         })
       })
       cy.contains('Deletar').click();
-      cy.wait(2000)
-      cy.get('[id="S7g3AgAAQBAJ"]').should("not.exist");
+      cy.get('[id="S7g3AgAAQBAJ"]',{ timeout: 10000 }).should("not.exist");
     })
   })
 
