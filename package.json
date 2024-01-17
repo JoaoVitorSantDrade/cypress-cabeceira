@@ -3,12 +3,15 @@
     "@testing-library/cypress": "^10.0.1",
     "cypress": "^13.5.1"
   },
-
   "scripts": {
     "cypress:open": "cypress open --browser chrome --e2e",
     "cypress:run": "cypress run --spec 'cypress/e2e/myBookshelf/myBookshelf.cy.js'",
     "cypress:all": "cypress run",
     "generate:report": "marge ./mochareports/*.json",
     "lint-fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "clipboardy": "^4.0.0",
+    "cypress-parallel": "^0.14.0"
   }
 }

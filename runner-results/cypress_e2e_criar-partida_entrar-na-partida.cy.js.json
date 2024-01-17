@@ -1,0 +1,10 @@
+{
+  "suites": 1,
+  "tests": 1,
+  "passes": 0,
+  "pending": 0,
+  "failures": 1,
+  "start": "2024-01-11T15:48:11.161Z",
+  "duration": 20720,
+  "file": "cypress\\e2e\\criar-partida\\entrar-na-partida.cy.js"
+}
